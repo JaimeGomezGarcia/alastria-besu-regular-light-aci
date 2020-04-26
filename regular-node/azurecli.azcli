@@ -19,15 +19,13 @@ az storage share create \
   --name $ACI_PERS_SHARE_NAME \
   --account-name $ACI_PERS_STORAGE_ACCOUNT_NAME
 
-echo "Storage Account Name"
-echo $ACI_PERS_STORAGE_ACCOUNT_NAME
+echo "Storage Account Name: " $ACI_PERS_STORAGE_ACCOUNT_NAME
 
-echo "Storage Share Name"
-echo $ACI_PERS_SHARE_NAME
+echo "Storage Share Name: " $ACI_PERS_SHARE_NAME
 
-echo "Storage Account Key"
+
 STORAGE_KEY=$(az storage account keys list --resource-group $ACI_PERS_RESOURCE_GROUP --account-name $ACI_PERS_STORAGE_ACCOUNT_NAME --query "[0].value" --output tsv)
-echo $STORAGE_KEY
+echo "Storage Account Key: " $STORAGE_KEY
 
 az container create \
     --subscription $SUBSCRIPTION \
@@ -44,7 +42,7 @@ az container create \
     --azure-file-volume-mount-path /opt/besu/database \
     --gitrepo-url https://github.com/JaimeGomezGarcia/alastria-besu-regular-light-aci.git \
     --gitrepo-mount-path /opt/besu/boot \
-    --environment-variables BESU_CONFIG_FILE=/opt/besu/boot/regular-node/config/besu/config.toml
+    --environment-variables BESU_CONFIG_FILE=/opt/besu/boot/regular-node/config/besu/config.toml BESU_LOGGING=DEBUG
 
 
 az container exec \
