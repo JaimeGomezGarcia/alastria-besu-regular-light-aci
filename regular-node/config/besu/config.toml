@@ -13,4 +13,4 @@ rpc-ws-enabled=true
 rpc-http-enabled=true
 rpc-http-host="0.0.0.0"
 rpc-http-api=["ETH","NET","IBFT","WEB3","ADMIN"]
-logging="WARN"
+logging="DEBUG"
