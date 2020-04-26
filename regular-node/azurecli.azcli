@@ -34,14 +34,14 @@ az container create \
     --resource-group $ACI_PERS_RESOURCE_GROUP \
     --name regulartest \
     --image hyperledger/besu:1.4.3 \
-    --cpu 1 \
-    --memory 1 \
+    --cpu 2 \
+    --memory 3 \
     --dns-name-label sanregulartest \
     --ports 30303 8545 \
     --azure-file-volume-account-name $ACI_PERS_STORAGE_ACCOUNT_NAME \
     --azure-file-volume-account-key $STORAGE_KEY \
     --azure-file-volume-share-name $ACI_PERS_SHARE_NAME \
-    --azure-file-volume-mount-path /opt/besu/data \
+    --azure-file-volume-mount-path /opt/besu/database \
     --gitrepo-url https://github.com/JaimeGomezGarcia/alastria-besu-regular-light-aci.git \
     --gitrepo-mount-path /opt/besu/boot \
     --environment-variables BESU_CONFIG_FILE=/opt/besu/boot/regular-node/config/besu/config.toml
