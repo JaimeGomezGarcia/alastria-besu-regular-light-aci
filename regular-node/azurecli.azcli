@@ -2,7 +2,7 @@
 ACI_PERS_RESOURCE_GROUP=alastria-besu-test
 ACI_PERS_STORAGE_ACCOUNT_NAME=alastriabesutestsa$RANDOM
 ACI_PERS_LOCATION=westeurope
-ACI_PERS_SHARE_NAME=acishare
+ACI_PERS_SHARE_NAME=besu-database
 SUBSCRIPTION=sdis1glbsubgeneriglob001
 
 # Create the storage account with the parameters
@@ -31,7 +31,7 @@ az container create \
     --subscription $SUBSCRIPTION \
     --resource-group $ACI_PERS_RESOURCE_GROUP \
     --name regulartest \
-    --image hyperledger/besu:1.4.3 \
+    --image hyperledger/besu:1.4.4 \
     --cpu 2 \
     --memory 3 \
     --dns-name-label sanregulartest \
@@ -42,10 +42,4 @@ az container create \
     --azure-file-volume-mount-path /opt/besu/database \
     --gitrepo-url https://github.com/JaimeGomezGarcia/alastria-besu-regular-light-aci.git \
     --gitrepo-mount-path /opt/besu/boot \
-    --environment-variables BESU_CONFIG_FILE=/opt/besu/boot/regular-node/config/besu/config.toml BESU_LOGGING=DEBUG
-
-
-az container exec \
-    --subscription $SUBSCRIPTION \
-    --resource-group $ACI_PERS_RESOURCE_GROUP \
-    --name regulartest \
+    --command-line='besu --config-file=/opt/besu/boot/regular-node/config/besu/config.toml'
