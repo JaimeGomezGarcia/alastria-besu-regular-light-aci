@@ -23,8 +23,12 @@ echo "Storage Account Name: " $ACI_PERS_STORAGE_ACCOUNT_NAME
 
 echo "Storage Share Name: " $ACI_PERS_SHARE_NAME
 
+STORAGE_KEY=$(az storage account keys list \
+  --resource-group $ACI_PERS_RESOURCE_GROUP \
+  --account-name $ACI_PERS_STORAGE_ACCOUNT_NAME \
+  --query "[0].value" \
+  --output tsv)
 
-STORAGE_KEY=$(az storage account keys list --resource-group $ACI_PERS_RESOURCE_GROUP --account-name $ACI_PERS_STORAGE_ACCOUNT_NAME --query "[0].value" --output tsv)
 echo "Storage Account Key: " $STORAGE_KEY
 
 az container create \
